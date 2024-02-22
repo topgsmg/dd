@@ -1,0 +1,168 @@
+    6......
+
+2:1
+
+module p621(y,A0,A1,S0); 
+output y; 
+input A0; 
+input A1; 
+input S0; 
+reg y; 
+always @ (A0,A1,S0) 
+begin 
+y=((~S0 & A0)|(S0 & A1)); 
+end 
+endmodule
+
+4:1
+module p641(y,A0,A1,A2,A3,S0,S1); 
+output y; 
+input A0; 
+input A1; 
+input A2; 
+input A3; 
+input S0; 
+input S1; 
+reg y; 
+always @ (A0,A1,A2,A3,S0,S1) 
+begin 
+y= (~S0 & ~S1 & A0) | (S0 & S1 & A1) | (S0 & ~S1 & A2) | (S0 & S1 & A3); 
+end 
+endmodule
+
+8:1
+
+module p681(Y,A0,A1,A2,A3,A4,A5,A6,A7,S0,S1,S2); 
+output Y; 
+input A0; 
+input A1; 
+input A2; 
+input A3; 
+input A4; 
+input A5; 
+input A6; 
+input A7; 
+input S0; 
+input S1; 
+input S2;
+reg Y; 
+always @ (A0,A1,A2,A3,A4,A5,A6,A7,S0,S1,S2) 
+begin 
+y= (~S0 & ~S1 & ~S2 & A0 ) | 
+(~S0 & ~S1 & S2 & A1) | 
+(~S0 & S1 & S2 & A2) | 
+( ~S0 & S1 & S2 & A3) | 
+(S0 & ~S1 & ~S2 & A4) | 
+(S0 & ~S1 & S2 & A5) | 
+(S0 & S1 & ~S2 & A6) | 
+(S0 & S1 & S2 & A7) ; 
+end 
+endmodule
+
+7.......
+
+1:2
+module P712(A,Y0,Y1,S0); 
+input A; 
+output Y0; 
+output Y1; 
+input S0; 
+reg Y0,Y1; 
+always @ (S0,A) 
+begin 
+Y0=(~S0 & A); 
+Y1=(S0 & A); 
+end 
+endmodule
+
+1:4
+module P714(A,S0,S1,Y0,Y1,Y2,Y3); 
+input A; 
+input S0; 
+input S1; 
+output Y0; 
+output Y1; 
+output Y2; 
+output Y3; 
+reg Y0,Y1,Y2,Y3; 
+always @ (S0,S1,A) 
+begin 
+Y0=(~S0 & ~S1 & A); 
+Y1=(~S0 & S1 & A); 
+Y2=(S0 & ~S1 & A); 
+Y3=(S0 & S1 & A); 
+end 
+endmodule
+
+1:8
+module P718(A,S0,S1,S2,Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7); 
+input A; 
+input S0; 
+input S1; 
+input S2; 
+output Y0; 
+output Y1; 
+output Y2; 
+output Y3; 
+output Y4; 
+output Y5; 
+output Y6; 
+output Y7; 
+reg Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7; 
+always @ (S0,S1,S2,A) 
+begin 
+Y0=(~S0 & ~S1 & ~S2 & A); 
+Y1=(~S0 & ~S1 & S2 & A); 
+Y2=(~S0 & S1 & ~S2 & A); 
+Y3=(~S0 & S1 & S2 & A); 
+Y4=(S0 & ~S1 & ~S2 & A); 
+Y5=(S0 & ~S1 & S2 & A); 
+Y6=(S0 & S1 & ~S2 & A); 
+Y7=(S0 & S1 & S2 & A); 
+end 
+endmodule
+
+8......
+S-R
+module SR_flipflop (
+  input clk, 
+  input s,r,
+  output reg q,
+  output q_bar
+  );
+   always@(posedge clk) begin 
+       case({s,r})
+        2'b00: q <= q;    // No change
+        2'b01: q <= 1'b0; // reset
+        2'b10: q <= 1'b1; // set
+        2'b11: q <= 1'bx; // Invalid inputs
+      endcase
+    end
+  end
+  assign q_bar = ~q;
+endmodule
+
+J-K
+
+module jk_ff ( input j, input k, input clk, output q);  
+reg q;  
+always @ (posedge clk)  
+ case ({j,k})  
+  2'b00 :  q <= q;  
+  2'b01 :  q <= 0;  
+  2'b10 :  q <= 1;  
+  2'b11 :  q <= ~q;  
+      endcase  
+endmodule  
+D....
+
+module D_FF(D,clk,Q);
+input D; 
+input clk;
+output Q; 
+always @(posedge clk) 
+begin
+ Q <= D; 
+end 
+endmodule 
+
